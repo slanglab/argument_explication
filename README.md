@@ -23,3 +23,14 @@ conda create -y --name argex python==3.9
 conda activate argex
 pip install -r requirements.txt
 ```
+
+
+## Prior Argumentation Datasets for Evaluation
+The evaluation data in the ```data``` folder come from the following sources:
+
+1. <a href="https://github.com/maria-becker/IKAT-EN/tree/master/corpus">Implicit Knowledge in Argumentative Texts: An annotated Corpus</a>
+
+2. <a href="https://github.com/peldszus/arg-microtexts">An annotated corpus of argumentative microtexts.</a>
+
+3. <a href="https://github.com/UKPLab/argument-reasoning-comprehension-task">The Argument Reasoning Comprehension Task: Identification and Reconstruction of Implicit Warrants</a>
+
