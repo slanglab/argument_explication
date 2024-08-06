@@ -16,8 +16,8 @@ If you use this code or data, please cite our paper:
 ## Set-up
 Follow these instructions to set-up your repository. You will need to download <a href="https://www.anaconda.com/">Anaconda</a> to run ```conda``` and ```python``` commands.
 
-git clone git@github.com:kakeith/interruptions-supreme-court.git
-cd argex
+git clone https://github.com/slanglab/argument_explication.git
+cd argument_explication
 conda create -y --name argex python==3.9
 conda activate argex
 pip install -r requirements.txt
