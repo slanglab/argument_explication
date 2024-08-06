@@ -25,8 +25,8 @@ pip install -r requirements.txt
 ```
 
 
-## Prior Argumentation Datasets for Evaluation
-The evaluation data in the ```data``` folder come from the following sources:
+## Evaluation Datasets
+The prior argumentation datasets for evaluation in the ```data``` folder come from the following sources:
 
 1. <a href="https://github.com/maria-becker/IKAT-EN/tree/master/corpus">Implicit Knowledge in Argumentative Texts: An annotated Corpus</a>
 
