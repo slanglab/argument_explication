@@ -4,13 +4,13 @@ import pandas as pd
 import numpy as np
 from utils import load_jsonl
 
-with open('../phrases/toulmin.txt', 'r') as f:
+with open('/argument_explication/data/phrases/toulmin.txt', 'r') as f:
     lines = f.readlines()
 phrases = [l.strip('\n') for l in lines] 
 
 
 #ARCT
-file_name = '../implicit_premise_data/argument-reasoning-comprehension-task/mturk/annotation-task/data/exported-SemEval2018-train-dev-test/test-full.txt'
+file_name = '/argument_explication/data/evaluation_datasets/arct_test_full.txt'
 data = pd.read_csv(file_name, sep='\t')
 print(len(data))
 
@@ -58,7 +58,7 @@ for phrase in phrases:
                     json_string = json.dumps(job)
                     f.write(json_string + "\n")
         
-        command = 'python ../openai-cookbook/examples/api_request_parallel_processor.py --requests_filepath ../openai-cookbook/examples/data/my_example_requests_to_parallel_process.jsonl --save_filepath ../results/warrant_validation/AccordingTo/Toulmin/GPT4/baselines/mct_extract_claim_test_claims_'
+        command = 'python ../openai-cookbook/examples/api_request_parallel_processor.py --requests_filepath ../openai-cookbook/examples/data/my_example_requests_to_parallel_process.jsonl --save_filepath ../results/warrant_validation/arct_'
         
         #split phrase into words and join by underscore
         phrase = re.sub('\(', 'LRB ', phrase)
