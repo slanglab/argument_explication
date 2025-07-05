@@ -1,6 +1,6 @@
 ## Harnessing Toulmin’s theory for zero-shot argument explication
 
-This is replication code to support the paper <a href="https://ankitaiisc.github.io/images/ArgEx_ACL_2024.pdf">Harnessing Toulmin’s theory for zero-shot argument explication</a> which is forthcoming in ACL 2024.
+This is replication code to support the paper <a href="https://ankitaiisc.github.io/images/ArgEx_ACL_2024.pdf">Harnessing Toulmin’s theory for zero-shot argument explication</a> which is forthcoming in Proceedings of ACL 2024.
 
 If you use this code or data, please cite our paper:
 ```
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 
 ## Evaluation Datasets
-The prior argumentation datasets for evaluation in the ```data``` folder come from the following sources:
+The prior argumentation datasets for evaluation should be placed in the ```data``` folder from the following sources:
 
 1. <a href="https://github.com/maria-becker/IKAT-EN/tree/master/corpus">Implicit Knowledge in Argumentative Texts: An annotated Corpus</a>
 
