@@ -4,20 +4,20 @@ import pandas as pd
 import numpy as np
 from utils import load_jsonl
 
-with open('/argument_explication/data/phrases/toulmin.txt', 'r') as f:
+with open('../../data/phrases/toulmin.txt', 'r') as f:
     lines = f.readlines()
-phrases = [l.strip('\n') for l in lines] 
+phrases = [l.strip('\n').split(',')[0] for l in lines] 
 
 
 #ARCT
-file_name = '/argument_explication/data/evaluation_datasets/arct_test_full.txt'
+file_name = '../../data/evaluation_datasets/arct_test_full.txt'
 data = pd.read_csv(file_name, sep='\t')
 print(len(data))
 
 
 N = len(data)
 for phrase in phrases:
-    for start in range(0, N, 50): #len(data)
+    for start in range(0, N, 50):
         filename = "../openai-cookbook/examples/data/my_example_requests_to_parallel_process.jsonl"
         jobs = []
         
