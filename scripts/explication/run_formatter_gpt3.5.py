@@ -30,13 +30,14 @@ for f in files:
         for start in range(0, len(arranged_data), 50):
             jobs = []
             for i in range(start, min(start+50, len(arranged_data)), 1):
-                #open-ai models
+                
+                ### uncomment when using open-ai models 
                 #response = arranged_data[i][1]['choices'][0]['message']['content'] #gpt4
                 ##response = arranged_data[i][1]['choices'][0]['text'] #gpt3
                 #arranged_data[i][2]['response'] = response
                 #metadata = arranged_data[i][2]
                 
-                #open-sourced models
+                #### uncomment when using open-sourced models like Llama
                 response = arranged_data[i]['original_response']['output']['choices'][0]['text']
                 metadata = {'claim': arranged_data[i]['original_claim'],\
                            'reason': arranged_data[i]['original_reason'],\
@@ -48,7 +49,8 @@ for f in files:
                 if len(response)>0 and response[-1] != '.':
                     response += '.'
                     
-                instruction = '"""\n\nTherefore, the answer ("yes" or "no") is:'
+                #instruction = '"""\n\nTherefore, the answer ("yes" or "no") is:'
+                instruction = '"""\n\nFormat the above text in a Python dictionary with values as a list of bullet points.\n'
                 prompt = '"""'+response+instruction
                 
                 jobs += [{"model": 'gpt-3.5-turbo-0613', "messages": [{"role": "user", "content": prompt}],\
@@ -60,7 +62,7 @@ for f in files:
                         f_.write(json_string + "\n")
                             
             
-            command = 'python ../openai-cookbook/examples/api_request_parallel_processor.py --requests_filepath ../openai cookbook/examples/data/new_example_requests_to_parallel_process.jsonl --save_filepath ../results/warrant_validation/AccordingTo/Toulmin/LLAMA2-70B-Dict/'
+            command = 'python ../openai-cookbook/examples/api_request_parallel_processor.py --requests_filepath ../openai cookbook/examples/data/new_example_requests_to_parallel_process.jsonl --save_filepath ../results/warrant_validation/AccordingTo/Toulmin/'+model_name+'-Dict/'
             
             f = '_'.join(f.split(' '))
             command+=f
