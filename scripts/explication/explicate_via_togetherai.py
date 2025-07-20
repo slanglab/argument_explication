@@ -2,8 +2,7 @@ import json
 import re, os
 import copy
 import numpy as np
-from prompts import *
-from utils import *
+from utils import load_jsonl
 from tqdm import tqdm
 import pandas as pd
 
@@ -13,8 +12,6 @@ os.environ["TOGETHER_API_KEY"] = key
 together.api_key = os.environ["TOGETHER_API_KEY"]
 together.Models.start("togethercomputer/llama-2-70b-chat") #falcon-40b llama-2-70b-chat
 
-
-import together
 import logging
 from typing import Any, Dict, List, Mapping, Optional
 from pydantic import Extra, Field, root_validator
@@ -83,37 +80,31 @@ test_llm = TogetherLLM(
 
     
 
-with open('../phrases/toulmin.txt', 'r') as f:
+with open('../../data/phrases/toulmin.txt', 'r') as f:
     lines = f.readlines()
-phrases = [l.split(',')[0] for l in lines] 
+phrases = [l.strip('\n').split(',')[0] for l in lines] 
 
-def load_jsonl(path):
-    data=[]
-    with open(path, 'r', encoding='utf-8') as reader:
-        for line in reader:
-            data.append(json.loads(line))
-    return data 
 
-# ARCT
-claim_count = 0
-file_name = '../implicit_premise_data/argument-reasoning-comprehension-task/mturk/annotation-task/data/exported-SemEval2018-train-dev-test/test-full.txt'
+
+#ARCT
+file_name = '../../data/evaluation_datasets/arct_test_full.txt'
 data = pd.read_csv(file_name, sep='\t')
 print(len(data))
+
+save_dir = '../results/warrant_validation/AccordingTo/Toulmin/LLAMA2-70B/'
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 
 p_count = 0
 for phrase in phrases[p_count:]:
     print(p_count, phrase)
     p_count+=1
-    base_dir = '../results/warrant_validation/AccordingTo/Toulmin/LLAMA2-70B/'
-    if not os.path.exists(base_dir):
-        os.makedirs(base_dir)
         
-    file_name = base_dir+'becker_test_claims_'+phrase+'_0.0.jsonl'
+    file_name = save_dir+'arct_test_claims_'+phrase+'_0.0.jsonl'
     if os.path.exists(file_name):   
         claims_toulmin = load_jsonl(file_name)
 
     else:
-        #continue
         claims_toulmin = []
         
     print('Resuming from: ', len(claims_toulmin))
@@ -121,7 +112,6 @@ for phrase in phrases[p_count:]:
     for x in range(len(data)):
         if x<len(claims_toulmin):
             continue
-        
         
         #ARCT
         temp = data.iloc[x]
@@ -169,9 +159,9 @@ for phrase in phrases[p_count:]:
         claims_toulmin.append(temp)
         del temp
 
-        save_jsonl(base_dir+'arct_test_claims_'+phrase+'_0.0.jsonl', claims_toulmin)
+        save_jsonl(save_dir+'arct_test_claims_'+phrase+'_0.0.jsonl', claims_toulmin)
 
         claim_count+=1  
         
     #save everything at last
-    save_jsonl(base_dir+'arct_test_claims_'+phrase+'_0.0.jsonl', claims_toulmin)
+    save_jsonl(save_dir+'arct_test_claims_'+phrase+'_0.0.jsonl', claims_toulmin)
